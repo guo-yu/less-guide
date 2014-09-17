@@ -1,3 +1,5 @@
+## LESS 语法风格与书写规范指南
+
 LESS 是一种 CSS 预编译语言，将 CSS 进行简化和拓展，提升编码效率，降低维护成本。由于书写简便，功能够用，安装方便，中间件支持较多，现为许多团队的内置的 CSS 预编译语言。但由于 LESS 的灵活性，容易导致项目维护的隐形成本上升，因此，需要一些编码方式的约束，用以规范 LESS 文件的书写。
 
 本指南将组件拆分，并填写了详细注释，这些文件分布在 `./less` 文件夹下，是以 `.less` 后缀结尾的文件。(WIP)
@@ -9,6 +11,25 @@ LESS 是一种 CSS 预编译语言，将 CSS 进行简化和拓展，提升编�
 #### 缩进控制
 
 所有文件，均采用 2 空格缩进。
+
+#### 使用入口文件
+
+使用入口文件管理子模块文件，并严格控制子 LESS 模块的代码长度，为了区分不同模块的代码功能，建议一个模块中只容纳一个 namespace，在入口文件中，采用 LESS `@import` 引入其他子模块文件，例如：
+
+```less
+@import "variables.less";
+@import "mixins.less";
+@import "basic.less";
+@import "article.less";
+@import "notify.less";
+@import "share.less";
+```
+
+**注意:** LESS `@import` 方式与 CSS `@import` 相似，但没有 `url()` 包裹。
+
+#### 抽象变量
+
+将变量写在单独的文件中，并进行命名的规划，这个文件可以取名为 `variables.less` 或 `vars.less`，并采用 LESS `@import` 的方式加载到主文件当中
 
 #### 选择器的继承不超过 3 层
 
@@ -91,6 +112,10 @@ LESS 文件可以很方便的进行继承选择器的书写，例如：
   }
 }
 ```
+
+#### 使用内置函数代替颜色的四则运算
+
+使用 `lighten()` 等内置函数代替 `#444 + #000`，使得代码看起来可读性更强。
 
 ### MIT license
 Copyright (c) 2014 Guo Yu &lt;o.u.turing@gmail.com&gt;
